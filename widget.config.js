@@ -1,7 +1,7 @@
 module.exports = {
-  widgetName: "jsDev",
+  widgetName: "dataReport",
   server: "$",
-  file: "jsDev",
+  file: "CK_Contact",
   uploadScript: "UploadToHTML",
   reloadScript: "Load Widget",
 };

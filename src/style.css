@@ -43,3 +43,11 @@ button {
   background-color: #0091CE;
   color: #fff;
 }
+
+a:not([href]):not([tabindex]){
+  color: blue;
+}
+
+table.dataTable thead th, table.dataTable tfoot th {
+  font-weight: normal;
+  }
