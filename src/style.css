@@ -7,7 +7,7 @@ body {
   color: #000;
   background-color: #fff;
   margin: 10;
-  overflow: hidden;
+  overflow: scroll;
 }
 
 p{
@@ -23,6 +23,20 @@ h1 {
   font-weight: 400;
   line-height: 1.2;
   margin: 0 0 10px;
+}
+
+.scroll-container {
+  width: 100%;
+  overflow-x: auto; /* Enable horizontal scrolling */
+  white-space: nowrap; /* Prevent wrapping of content */
+  display: flex; /* Optional: Use flexbox for layout */
+}
+
+.scroll-item {
+  min-width: 200px; /* Example width for each item */
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-right: 10px; /* Optional: Add spacing between items */
 }
 
 .tintedBlackLeft {
