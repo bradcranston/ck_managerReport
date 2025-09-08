@@ -55,11 +55,18 @@ window.loadData = (json) => {
     let completedCount = 0;
     
     const allData = dt.rows({ search: 'applied' }).data();
+    const allowedStatuses = ['Enrolled', 'Retention', 'Provisional'];
     
     for (let i = 0; i < allData.length; i++) {
       const rowData = allData[i];
-      const startDate = rowData.programStart; // index 10 (was 9)
-      const endDate = rowData.trainingExit;   // index 26 (was 25)
+      const startDate = rowData.programStart; 
+      const endDate = rowData.trainingExit;   
+      const programStatus = rowData.statusContact;
+      
+      // Only count rows with allowed Program Status
+      if (!allowedStatuses.includes(programStatus)) {
+        continue; // Skip this row
+      }
       
       // Check if active during period
       if (isActiveTraineeDuringPeriod(startDate, endDate, reportStartDate, reportEndDate)) {
@@ -745,6 +752,13 @@ window.loadData = (json) => {
       const rowData = dt.row(dataIndex).data();
       const programStart = rowData.programStart;
       const trainingExit = rowData.trainingExit;
+      const programStatus = rowData.statusContact;
+      
+      // Only include rows with specific Program Status values
+      const allowedStatuses = ['Enrolled', 'Retention', 'Provisional'];
+      if (!allowedStatuses.includes(programStatus)) {
+        return false; // Hide rows that don't have the allowed status
+      }
       
       const isActive = isActiveTraineeDuringPeriod(programStart, trainingExit, startDate, endDate);
       
