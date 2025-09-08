@@ -12,6 +12,60 @@
     <style> @import "./src/style.css";</style>
   </head>
   <body>
+    <div class="container-fluid mt-3">
+      <div class="mb-3">
+        <button id="toggleActiveTraineesReport" class="btn btn-outline-primary">
+          <i class="fas fa-chart-line"></i> Show Active Trainees Report
+        </button>
+      </div>
+      <div id="activeTraineesReportSection" class="date-range-filter mb-3 p-3 bg-light border rounded" style="display: none;">
+        <h5>Active Trainees Report Period</h5>
+        <div class="row">
+          <div class="col-md-3">
+            <label for="startDate">Report Period Start:</label>
+            <input type="date" id="startDate" class="form-control">
+          </div>
+          <div class="col-md-3">
+            <label for="endDate">Report Period End:</label>
+            <input type="date" id="endDate" class="form-control">
+          </div>
+          <div class="col-md-3 d-flex align-items-end">
+            <button id="filterByDateRange" class="btn btn-primary">Filter Active Trainees</button>
+          </div>
+          <div class="col-md-3 d-flex align-items-end">
+            <button id="clearDateFilter" class="btn btn-secondary">Clear Filter</button>
+          </div>
+        </div>
+        <div id="activeSummary" class="mt-3" style="display: none;">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="card bg-primary text-white">
+                <div class="card-body">
+                  <h6>Active During Period</h6>
+                  <h4 id="activeTraineesCount">0</h4>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card bg-success text-white">
+                <div class="card-body">
+                  <h6>Started During Period</h6>
+                  <h4 id="startedDuringPeriod">0</h4>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card bg-info text-white">
+                <div class="card-body">
+                  <h6>Completed During Period</h6>
+                  <h4 id="completedDuringPeriod">0</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <table id="table" class="display nowrap" style="width:100%">
     </table>
     <div id="summaryFooter" class="scroll-container"></div>

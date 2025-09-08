@@ -64,4 +64,85 @@ a:not([href]):not([tabindex]){
 
 table.dataTable thead th, table.dataTable tfoot th {
   font-weight: normal;
-  }
+}
+
+/* Active Trainee Date Range Filter Styles */
+.date-range-filter {
+  border-left: 4px solid #007bff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.date-range-filter h5 {
+  color: #007bff;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.active-status {
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 12px;
+}
+
+.card {
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.card-body h6 {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  opacity: 0.8;
+}
+
+.card-body h4 {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0;
+}
+
+#activeSummary .row {
+  margin-left: -5px;
+  margin-right: -5px;
+}
+
+#activeSummary .col-md-4 {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+/* DataTable active status column styling */
+.active-status.badge-success {
+  background-color: #28a745;
+}
+
+.active-status.badge-danger {
+  background-color: #dc3545;
+}
+
+.active-status.badge-secondary {
+  background-color: #6c757d;
+}
+
+/* Toggle button styling */
+#toggleActiveTraineesReport {
+  font-weight: 600;
+  border-width: 2px;
+  transition: all 0.3s ease;
+}
+
+#toggleActiveTraineesReport:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0,123,255,0.3);
+}
+
+#toggleActiveTraineesReport i {
+  margin-right: 8px;
+}
+
+/* Smooth animation for the section */
+#activeTraineesReportSection {
+  transition: all 0.3s ease;
+}

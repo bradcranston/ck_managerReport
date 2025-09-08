@@ -1,145 +1,159 @@
 const summaryFunction = (api) => {
-  const columnCulinary = api.column(45, { search: "applied" }).data(); // Data from column index 45
-  const columnSuccess = api.column(5, { search: "applied" }).data(); // Data from column index 5
-  const columnTransitional = api.column(46, { search: "applied" }).data(); // Data from column index 5
-  const columnApprentice = api.column(47, { search: "applied" }).data(); // Data from column index 5
-  const columnPlaced = api.column(48, { search: "applied" }).data(); // Data from column index 5
-  const columnfJobStart = api.column(36, { search: "applied" }).data(); // Data from column index 45
-  const columnThreeAch = api.column(49, { search: "applied" }).data(); // Data from column index 45
-  const columnSixAch = api.column(50, { search: "applied" }).data(); // Data from column index 45
-  const columnTwelveAch = api.column(51, { search: "applied" }).data(); // Data from column index 45
+  const columnProgram = api.column(3, { search: "applied" }).data();
+  const columnSuccess = api.column(8, { search: "applied" }).data();
+  const columnPlaced = api.column(57, { search: "applied" }).data();
+  const columnfJobStart = api.column(49, { search: "applied" }).data();
+
+  const columnThreeEli = api.column(58, { search: "applied" }).data();
+  const columnThreeAch = api.column(59, { search: "applied" }).data();
+  const columnSixEli = api.column(60, { search: "applied" }).data();
+  const columnSixAch = api.column(61, { search: "applied" }).data();
+  const columnTwelveEli = api.column(62, { search: "applied" }).data();
+  const columnTwelveAch = api.column(63, { search: "applied" }).data();
+
+  console.log(columnfJobStart);
+
+  const columnLastWageStart = api.column(48, { search: "applied" }).data();
+  const columnFirstWageStart = api.column(50, { search: "applied" }).data();
+
+
+
+// Calculate program-specific averages
+const avgLastWageCulinary = calculateAverage(columnLastWageStart, columnProgram, 'Culinary Fundamentals');
+const avgFirstWageCulinary = calculateAverage(columnFirstWageStart, columnProgram, 'Culinary Fundamentals');
+
+const avgLastWageTransitional = calculateAverage(columnLastWageStart, columnProgram, 'Transitional Employment');
+const avgFirstWageTransitional = calculateAverage(columnFirstWageStart, columnProgram, 'Transitional Employment');
+
+const avgLastWageApprentice = calculateAverage(columnLastWageStart, columnProgram, 'Apprenticeship');
+const avgFirstWageApprentice = calculateAverage(columnFirstWageStart, columnProgram, 'Apprenticeship');
+
 
   // Initialize counter for rows where current date is 3 months past fJobStart
-  const culThreeMonthsEli = countRowsThreeMonthsPast(
-    columnCulinary,
-    columnSuccess,
-    columnfJobStart
+  const culThreeMonthsEli = countRows(
+    columnThreeEli,
+    columnProgram,
+    'Culinary Fundamentals'
   );
-  const tranThreeMonthsEli = countRowsThreeMonthsPast(
-    columnTransitional,
-    columnSuccess,
-    columnfJobStart
+  const tranThreeMonthsEli = countRows(
+    columnThreeEli,
+    columnProgram,
+    'Transitional Employment'
   );
-  const appThreeMonthsEli = countRowsThreeMonthsPast(
-    columnApprentice,
-    columnSuccess,
-    columnfJobStart
-  );
-
-  const culThreeMonthsAch = countRowsThreeMonthsAch(
-    columnCulinary,
-    columnSuccess,
-    columnfJobStart,
-    columnThreeAch
+  const appThreeMonthsEli = countRows(
+    columnThreeEli,
+    columnProgram,
+    'Apprenticeship'
   );
 
-  const tranThreeMonthsAch = countRowsThreeMonthsAch(
-    columnTransitional,
-    columnSuccess,
-    columnfJobStart,
-    columnThreeAch
+  const culThreeMonthsAch = countRows(
+    columnThreeAch,
+    columnProgram,
+    'Culinary Fundamentals'
   );
 
-  const appThreeMonthsAch = countRowsThreeMonthsAch(
-    columnApprentice,
-    columnSuccess,
-    columnfJobStart,
-    columnThreeAch
+  const tranThreeMonthsAch= countRows(
+    columnThreeAch,
+    columnProgram,
+    'Transitional Employment'
   );
 
-  // Initialize counter for rows where current date is 3 months past fJobStart
-  const culSixMonthsEli = countRowsSixMonthsPast(
-    columnCulinary,
-    columnSuccess,
-    columnfJobStart
-  );
-  const tranSixMonthsEli = countRowsSixMonthsPast(
-    columnTransitional,
-    columnSuccess,
-    columnfJobStart
-  );
-  const appSixMonthsEli = countRowsSixMonthsPast(
-    columnApprentice,
-    columnSuccess,
-    columnfJobStart
-  );
-
-  const culSixMonthsAch = countRowsSixMonthsAch(
-    columnCulinary,
-    columnSuccess,
-    columnfJobStart,
-    columnSixAch
-  );
-  const tranSixMonthsAch = countRowsSixMonthsAch(
-    columnTransitional,
-    columnSuccess,
-    columnfJobStart,
-    columnSixAch
-  );
-  const appSixMonthsAch = countRowsSixMonthsAch(
-    columnApprentice,
-    columnSuccess,
-    columnfJobStart,
-    columnSixAch
+  const appThreeMonthsAch = countRows(
+    columnThreeAch,
+    columnProgram,
+    'Apprenticeship'
   );
 
   // Initialize counter for rows where current date is 3 months past fJobStart
-  const culTwelveMonthsEli = countRowsTwelveMonthsPast(
-    columnCulinary,
-    columnSuccess,
-    columnfJobStart
+  const culSixMonthsEli = countRows(
+    columnSixEli,
+    columnProgram,
+    'Culinary Fundamentals'
   );
-  const tranTwelveMonthsEli = countRowsTwelveMonthsPast(
-    columnTransitional,
-    columnSuccess,
-    columnfJobStart
+  const tranSixMonthsEli = countRows(
+    columnSixEli,
+    columnProgram,
+    'Transitional Employment'
   );
-  const appTwelveMonthsEli = countRowsTwelveMonthsPast(
-    columnApprentice,
-    columnSuccess,
-    columnfJobStart
+  const appSixMonthsEli = countRows(
+    columnSixEli,
+    columnProgram,
+    'Apprenticeship'
   );
 
-  const culTwelveMonthsAch = countRowsTwelveMonthsAch(
-    columnTransitional,
-    columnSuccess,
-    columnfJobStart,
-    columnTwelveAch
+  const culSixMonthsAch = countRows(
+    columnSixAch,
+    columnProgram,
+    'Culinary Fundamentals'
   );
-  const tranTwelveMonthsAch = countRowsTwelveMonthsAch(
-    columnTransitional,
-    columnSuccess,
-    columnfJobStart,
-    columnTwelveAch
+  const tranSixMonthsAch = countRows(
+    columnSixAch,
+    columnProgram,
+    'Transitional Employment'
   );
-  const appTwelveMonthsAch = countRowsTwelveMonthsAch(
-    columnTransitional,
-    columnSuccess,
-    columnfJobStart,
-    columnTwelveAch
+  const appSixMonthsAch = countRows(
+    columnSixAch,
+    columnProgram,
+    'Apprenticeship'
+  );
+
+  // Initialize counter for rows where current date is 3 months past fJobStart
+  const culTwelveMonthsEli = countRows(
+    columnTwelveEli,
+    columnProgram,
+    'Culinary Fundamentals'
+  );
+  const tranTwelveMonthsEli = countRows(
+    columnTwelveEli,
+    columnProgram,
+    'Transitional Employment'
+  );
+  const appTwelveMonthsEli = countRows(
+    columnTwelveEli,
+    columnProgram,
+    'Apprenticeship'
+  );
+
+  const culTwelveMonthsAch = countRows(
+    columnTwelveAch,
+    columnProgram,
+    'Culinary Fundamentals'
+  );
+  const tranTwelveMonthsAch = countRows(
+    columnTwelveAch,
+    columnProgram,
+    'Transitional Employment'
+  );
+  const appTwelveMonthsAch = countRows(
+    columnTwelveAch,
+    columnProgram,
+    'Apprenticeship'
   );
 
   // Get the current date
   const currentDate = new Date();
 
-  const culinaryComplete = countSuccess(columnCulinary, columnSuccess);
-  const transitionalComplete = countSuccess(columnTransitional, columnSuccess);
-  const apprenticeComplete = countSuccess(columnApprentice, columnSuccess);
+  const culinaryComplete = countSuccess(columnProgram, columnSuccess, 'Culinary Fundamentals');
+  const transitionalComplete = countSuccess(columnProgram, columnSuccess, 'Transitional Employment');
+  const apprenticeComplete = countSuccess(columnProgram, columnSuccess, 'Apprenticeship');
 
   const culinaryPlaced = countPlaced(
-    columnCulinary,
+    columnProgram,
     columnSuccess,
-    columnPlaced
+    columnPlaced,
+    'Culinary Fundamentals'
   );
   const transitionalPlaced = countPlaced(
-    columnTransitional,
+    columnProgram,
     columnSuccess,
-    columnPlaced
+    columnPlaced,
+    'Transitional Employment'
   );
   const apprenticePlaced = countPlaced(
-    columnApprentice,
+    columnProgram,
     columnSuccess,
-    columnPlaced
+    columnPlaced,
+    'Apprenticeship'
   );
 
   // Remove the formatting to get integer data for summation
@@ -153,27 +167,28 @@ const summaryFunction = (api) => {
 
   // Total over all pages
   culinary = api
-    .column(45, { search: "applied" })
+    .column(2, { search: "applied" })
     .data()
     .filter(function (value) {
-      return value === "Yes";
+      return value === "Culinary Fundamentals";
     }).length;
 
   // Total over this page
   transitional = api
-    .column(46, { search: "applied" })
+    .column(2, { search: "applied" })
     .data()
     .filter(function (value) {
-      return value === "Yes";
+      return value === "Transitional Employment";
     }).length;
 
   // Total over this page
   apprentice = api
-    .column(47, { search: "applied" })
+    .column(2, { search: "applied" })
     .data()
     .filter(function (value) {
-      return value === "Yes";
+      return value === "Apprenticeship";
     }).length;
+
 
   const summaryFooter = document.getElementById("summaryFooter");
 
@@ -184,13 +199,15 @@ const summaryFunction = (api) => {
       Complete: culinaryComplete,
       Placed: culinaryPlaced,
       "Total Placed": decimalToPercent(culinaryPlaced / culinary),
-      "Complete Placed": decimalToPercent(culinaryComplete / culinary),
+      "Complete Placed": decimalToPercent(culinaryPlaced / culinaryComplete),
       "Eli 3 Mos": culThreeMonthsEli,
       "Ach 3 Mos": culThreeMonthsAch,
       "Eli 6 Mos": culSixMonthsEli,
       "Ach 6 Mos": culSixMonthsAch,
       "Eli 12 Mos": culTwelveMonthsEli,
       "Ach 12 Mos": culTwelveMonthsAch,
+      "Avg Start Wage": `$${avgFirstWageCulinary}`,
+      "Avg Current Wage": `$${avgLastWageCulinary}`,
     },
     {
       Program: "Transitional",
@@ -198,13 +215,15 @@ const summaryFunction = (api) => {
       Complete: transitionalComplete,
       Placed: transitionalPlaced,
       "Total Placed": decimalToPercent(transitionalPlaced / transitional),
-      "Complete Placed": decimalToPercent(transitionalComplete / transitional),
+      "Complete Placed": decimalToPercent(transitionalPlaced / transitionalComplete),
       "Eli 3 Mos": tranThreeMonthsEli,
       "Ach 3 Mos": tranThreeMonthsAch,
       "Eli 6 Mos": tranSixMonthsEli,
       "Ach 6 Mos": tranSixMonthsAch,
       "Eli 12 Mos": tranTwelveMonthsEli,
       "Ach 12 Mos": tranTwelveMonthsAch,
+      "Avg Start Wage": `$${avgFirstWageTransitional}`,
+      "Avg Current Wage": `$${avgLastWageTransitional}`,
     },
     {
       Program: "Apprentice",
@@ -212,13 +231,15 @@ const summaryFunction = (api) => {
       Complete: apprenticeComplete,
       Placed: apprenticePlaced,
       "Total Placed": decimalToPercent(apprenticePlaced / apprentice),
-      "Complete Placed": decimalToPercent(apprenticeComplete / apprentice),
+      "Complete Placed": decimalToPercent(apprenticePlaced / apprenticeComplete),
       "Eli 3 Mos": appThreeMonthsEli,
       "Ach 3 Mos": appThreeMonthsAch,
       "Eli 6 Mos": appSixMonthsEli,
       "Ach 6 Mos": appSixMonthsAch,
       "Eli 12 Mos": appTwelveMonthsEli,
       "Ach 12 Mos": appTwelveMonthsAch,
+      "Avg Start Wage": `$${avgFirstWageApprentice}`,
+      "Avg Current Wage": `$${avgLastWageApprentice}`,
     },
   ];
 
@@ -278,244 +299,38 @@ return csv
     return table;
   }
 
-  function countRowsThreeMonthsPast(
-    columnProgram,
-    columnSuccess,
-    columnfJobStart
-  ) {
-    // Initialize counter for rows where current date is 3 months past fJobStart
-    var threeMonthsPastCount = 0;
-
-    // Get the current date
-    var currentDate = new Date();
-
-    // Iterate through the data
-    for (var i = 0; i < columnProgram.length; i++) {
-      // Check conditions for transitional and success
-      if (columnProgram[i] === "Yes" && columnSuccess[i] === "Yes") {
-        // Get the fJobStart date from the column (assuming it's a Date object or a parsable date string)
-        var fJobStartDate = new Date(columnfJobStart[i]);
-
-        // Calculate the date that is 3 months from fJobStart
-        var threeMonthsPastDate = new Date(fJobStartDate);
-        threeMonthsPastDate.setMonth(threeMonthsPastDate.getMonth() + 3);
-
-        // Check if the current date is 3 months past fJobStart
-        if (currentDate >= threeMonthsPastDate) {
-          threeMonthsPastCount++;
-        }
-      }
-    }
-
-    // Return the count of rows where the current date is 3 months past fJobStart
-    return threeMonthsPastCount;
+  // Updated functions
+  function countRows(column, columnProgram, program) {
+    return column.filter((value, index) => value && value.trim() !== "" && columnProgram[index] === program).length;
   }
 
-  function countRowsThreeMonthsAch(
-    columnProgram,
-    columnSuccess,
-    columnfJobStart,
-    columnThreeMonthsAch
-  ) {
-    // Initialize counter for rows where current date is 3 months past fJobStart
-    var threeMonthsPastCount = 0;
 
-    // Get the current date
-    var currentDate = new Date();
 
-    // Iterate through the data
-    for (var i = 0; i < columnProgram.length; i++) {
-      // Check conditions for transitional and success
-      if (
-        columnProgram[i] === "Yes" &&
-        columnSuccess[i] === "Yes" &&
-        columnThreeMonthsAch[i] === "Yes"
-      ) {
-        // Get the fJobStart date from the column (assuming it's a Date object or a parsable date string)
-        var fJobStartDate = new Date(columnfJobStart[i]);
-
-        // Calculate the date that is 3 months from fJobStart
-        var threeMonthsPastDate = new Date(fJobStartDate);
-        threeMonthsPastDate.setMonth(threeMonthsPastDate.getMonth() + 3);
-
-        // Check if the current date is 3 months past fJobStart
-        if (currentDate >= threeMonthsPastDate) {
-          threeMonthsPastCount++;
-        }
-      }
-    }
-
-    // Return the count of rows where the current date is 3 months past fJobStart
-    return threeMonthsPastCount;
-  }
-
-  function countRowsSixMonthsPast(
-    columnProgram,
-    columnSuccess,
-    columnfJobStart
-  ) {
-    // Initialize counter for rows where current date is 3 months past fJobStart
-    var sixMonthsPastCount = 0;
-
-    // Get the current date
-    var currentDate = new Date();
-
-    // Iterate through the data
-    for (var i = 0; i < columnProgram.length; i++) {
-      // Check conditions for transitional and success
-      if (columnProgram[i] === "Yes" && columnSuccess[i] === "Yes") {
-        // Get the fJobStart date from the column (assuming it's a Date object or a parsable date string)
-        var fJobStartDate = new Date(columnfJobStart[i]);
-
-        // Calculate the date that is 3 months from fJobStart
-        var sixMonthsPastDate = new Date(fJobStartDate);
-        sixMonthsPastDate.setMonth(sixMonthsPastDate.getMonth() + 6);
-
-        // Check if the current date is 3 months past fJobStart
-        if (currentDate >= sixMonthsPastDate) {
-          sixMonthsPastCount++;
-        }
-      }
-    }
-
-    // Return the count of rows where the current date is 3 months past fJobStart
-    return sixMonthsPastCount;
-  }
-
-  function countRowsSixMonthsAch(
-    columnProgram,
-    columnSuccess,
-    columnfJobStart,
-    columnSixMonthsAch
-  ) {
-    // Initialize counter for rows where current date is 3 months past fJobStart
-    var sixMonthsPastCount = 0;
-
-    // Get the current date
-    var currentDate = new Date();
-
-    // Iterate through the data
-    for (var i = 0; i < columnProgram.length; i++) {
-      // Check conditions for transitional and success
-      if (
-        columnProgram[i] === "Yes" &&
-        columnSuccess[i] === "Yes" &&
-        columnSixMonthsAch[i] === "Yes"
-      ) {
-        // Get the fJobStart date from the column (assuming it's a Date object or a parsable date string)
-        var fJobStartDate = new Date(columnfJobStart[i]);
-
-        // Calculate the date that is 3 months from fJobStart
-        var sixMonthsPastDate = new Date(fJobStartDate);
-        sixMonthsPastDate.setMonth(sixMonthsPastDate.getMonth() + 6);
-
-        // Check if the current date is 3 months past fJobStart
-        if (currentDate >= sixMonthsPastDate) {
-          sixMonthsPastCount++;
-        }
-      }
-    }
-
-    // Return the count of rows where the current date is 3 months past fJobStart
-    return sixMonthsPastCount;
-  }
-
-  function countRowsTwelveMonthsPast(
-    columnProgram,
-    columnSuccess,
-    columnfJobStart
-  ) {
-    // Initialize counter for rows where current date is 3 months past fJobStart
-    var twelveMonthsPastCount = 0;
-
-    // Get the current date
-    var currentDate = new Date();
-
-    // Iterate through the data
-    for (var i = 0; i < columnProgram.length; i++) {
-      // Check conditions for transitional and success
-      if (columnProgram[i] === "Yes" && columnSuccess[i] === "Yes") {
-        // Get the fJobStart date from the column (assuming it's a Date object or a parsable date string)
-        var fJobStartDate = new Date(columnfJobStart[i]);
-
-        // Calculate the date that is 3 months from fJobStart
-        var twelveMonthsPastDate = new Date(fJobStartDate);
-        twelveMonthsPastDate.setMonth(twelveMonthsPastDate.getMonth() + 12);
-
-        // Check if the current date is 3 months past fJobStart
-        if (currentDate >= twelveMonthsPastDate) {
-          twelveMonthsPastCount++;
-        }
-      }
-    }
-
-    // Return the count of rows where the current date is 3 months past fJobStart
-    return twelveMonthsPastCount;
-  }
-
-  function countRowsTwelveMonthsAch(
-    columnProgram,
-    columnSuccess,
-    columnfJobStart,
-    columnTwelveMonthsAch
-  ) {
-    // Initialize counter for rows where current date is 3 months past fJobStart
-    var twelveMonthsPastCount = 0;
-
-    // Get the current date
-    var currentDate = new Date();
-
-    // Iterate through the data
-    for (var i = 0; i < columnProgram.length; i++) {
-      // Check conditions for transitional and success
-      if (
-        columnProgram[i] === "Yes" &&
-        columnSuccess[i] === "Yes" &&
-        columnTwelveMonthsAch[i] === "Yes"
-      ) {
-        // Get the fJobStart date from the column (assuming it's a Date object or a parsable date string)
-        var fJobStartDate = new Date(columnfJobStart[i]);
-
-        // Calculate the date that is 3 months from fJobStart
-        var twelveMonthsPastDate = new Date(fJobStartDate);
-        twelveMonthsPastDate.setMonth(twelveMonthsPastDate.getMonth() + 12);
-
-        // Check if the current date is 3 months past fJobStart
-        if (currentDate >= twelveMonthsPastDate) {
-          twelveMonthsPastCount++;
-        }
-      }
-    }
-
-    // Return the count of rows where the current date is 3 months past fJobStart
-    return twelveMonthsPastCount;
-  }
-  function countSuccess(columnProgram, columnSuccess) {
-    // Initialize counter for rows where both culinary and success are "Yes"
-    var programComplete = 0;
+  function countSuccess(columnProgram, columnSuccess , program) {
+    // Initialize counter for rows where program matches and success date is populated
+    let programComplete = 0;
 
     // Iterate through the data
     for (let i = 0; i < columnProgram.length; i++) {
-      // Check conditions for culinary and success
-      if (columnProgram[i] === "Yes" && columnSuccess[i] === "Yes") {
+      // Check conditions for program match and success date being populated
+      if (columnProgram[i] === program && columnSuccess[i] && columnSuccess[i].trim() !== "") {
         programComplete++;
       }
     }
 
-    // Return the count of rows where both culinary and success are "Yes"
+    // Return the count of rows where program matches and success date is populated
     return programComplete;
   }
 
-  function countPlaced(columnProgram, columnSuccess, columnPlaced) {
+  function countPlaced(columnProgram, columnSuccess, columnPlaced, program) {
     // Initialize counter for rows where transitional, success, and placed are "Yes"
-    var programPlaced = 0;
+    let programPlaced = 0;
 
     // Iterate through the data
     for (let i = 0; i < columnProgram.length; i++) {
       // Check conditions for transitional, success, and placed
       if (
-        columnProgram[i] === "Yes" &&
-        columnSuccess[i] === "Yes" &&
+        columnProgram[i] === program &&
         columnPlaced[i] === "Yes"
       ) {
         programPlaced++;
@@ -541,6 +356,26 @@ return csv
     // Add percent sign
     return formattedPercent + "%";
   }
+
+   // Function to calculate average based on program type
+ function calculateAverage(wageColumn, programColumn, programFilter) {
+  const filteredValues = wageColumn
+    .map((wage, index) => {
+      if (programColumn[index] === programFilter) {
+        const numericWage = parseFloat(wage.toString().replace(/[\$,]/g, "")); // Convert to number
+        return isNaN(numericWage) ? null : numericWage; // Ignore invalid numbers
+      }
+      return null;
+    })
+    .filter((value) => value !== null); // Remove null values
+
+  if (filteredValues.length === 0) return "-"; // No valid numbers to average
+
+  const sum = filteredValues.reduce((acc, val) => acc + val, 0);
+
+  return (sum / filteredValues.length).toFixed(2); // Return formatted average
+}
+
 };
 
 export { summaryFunction };
