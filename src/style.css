@@ -146,3 +146,35 @@ table.dataTable thead th, table.dataTable tfoot th {
 #activeTraineesReportSection {
   transition: all 0.3s ease;
 }
+
+/* Wait List Note column styling */
+.wait-list-note {
+  display: inline-block;
+  max-width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: help;
+}
+
+.wait-list-note:hover {
+  color: #007bff;
+  text-decoration: underline;
+}
+
+/* Enhanced tooltip styling */
+.wait-list-note[title]:hover::after {
+  content: attr(title);
+  position: absolute;
+  background: #333;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  white-space: normal;
+  max-width: 300px;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  margin-top: 25px;
+  margin-left: -10px;
+}

@@ -2,24 +2,6 @@
 
 import {summaryFunction} from "./summary.js"
 
-// FOR TESTING: Load data from JSON file
-// Remove this section when using with FileMaker
-async function loadTestData() {
-  try {
-    const response = await fetch('./data.json');
-    const testData = await response.json();
-    console.log('Loaded test data:', testData.length, 'records');
-    window.loadData(JSON.stringify(testData));
-  } catch (error) {
-    console.error('Error loading test data:', error);
-  }
-}
-
-// Load test data when page loads
-document.addEventListener('DOMContentLoaded', function() {
-  loadTestData();
-});
-
 window.loadData = (json) => {
   const data = JSON.parse(json);
   console.log('loadData called with', data.length, 'records');
@@ -84,12 +66,15 @@ window.loadData = (json) => {
       }
       
       // Check if completed during period
-      if (endDate && endDate.trim() !== "") {
-        const end = new Date(endDate);
-        const periodStart = new Date(reportStartDate);
-        const periodEnd = new Date(reportEndDate);
-        if (end >= periodStart && end <= periodEnd) {
-          completedCount++;
+      if (endDate) {
+        const trimmedEndDate = typeof endDate === 'string' ? endDate.trim() : endDate.toString().trim();
+        if (trimmedEndDate !== "") {
+          const end = new Date(endDate);
+          const periodStart = new Date(reportStartDate);
+          const periodEnd = new Date(reportEndDate);
+          if (end >= periodStart && end <= periodEnd) {
+            completedCount++;
+          }
         }
       }
     }
@@ -155,374 +140,396 @@ window.loadData = (json) => {
     name: "Program"
   },
   {
-    index: 3,
+    index: 4,
+    data: "waitListDate",
+    title: "Wait List Date",
+    name: "waitListDate",
+    type: "date",
+  },
+  {
+    index: 5,
+    data: "waitListNote",
+    title: "Wait List Note",
+    name: "waitListNote",
+    width: "150px",
+    render: function (data, type) {
+      if (type === 'display' && data) {
+        // Truncate text and add tooltip
+        const truncatedText = data.length > 25 ? data.substring(0, 25) + '...' : data;
+        return `<span title="${data}" class="wait-list-note">${truncatedText}</span>`;
+      }
+      return data || '';
+    }
+  },
+  {
+    index: 6,
     data: "name",
     title: "Name",
     name: "Name",
   },
   {
-    index: 3,
+    index: 7,
     data: "phone",
     title: "Phone",
     name: "Phone",
   },
   {
-    index: 3,
+    index: 8,
     data: "email",
     title: "Email",
     name: "Email",
   },
   {
-    index: 4,
+    index: 9,
     data: "status",
     title: "Training Status",
     name: "status",
   },
   {
-    index: 5,
+    index: 10,
     data: "enrolled",
     title: "Enrolled",
     name: "enrolled",
   },
   {
-    index: 6,
+    index: 11,
     data: "rapid",
     title: "Rapid Re-hire",
     name: "rapid",
   },
   {
-    index: 7,
+    index: 12,
     data: "passedProgram",
     title: "Completed Training",
     name: "passedProgram",
   },
   {
-    index: 8,
+    index: 13,
     data: "passedProbation",
     title: "Passed Probation",
     name: "passedProbation",
   },
   {
-    index: 9,
+    index: 14,
     data: "programStart",
     title: "Program Start",
     name: "programStart",
     type: "date",
   },
   {
-    index: 10,
+    index: 15,
     data: "programFY",
     title: "Program FY",
     name: "programFY",
   },
   {
-    index: 11,
+    index: 16,
     data: "programCY",
     title: "Program CY",
     name: "programCY",
   },
   {
-    index: 12,
+    index: 17,
     data: "fsnap",
     title: "SNAP",
     name: "snap",
   },
   {
-    index: 13,
+    index: 18,
     data: "firtp",
     title: "IRTP",
     name: "irtp",
   },
   {
-    index: 14,
+    index: 19,
     data: "fbcc",
     title: "BCC",
     name: "bcc",
   },
   {
-    index: 15,
+    index: 20,
     data: "archive",
     title: "Archive",
     name: "archive",
   },
   {
-    index: 16,
+    index: 21,
     data: "zip",
     title: "Zip",
     name: "zip",
   },
   {
-    index: 17,
+    index: 22,
     data: "referralSource",
     title: "Referral Source",
     name: "referralSource",
   },
   {
-    index: 18,
+    index: 23,
     data: "referringAgency",
     title: "Referring Agency",
     name: "referringAgency",
   },
   {
-    index: 19,
+    index: 24,
     data: "supportiveServicesKind",
     title: "Supportive Services",
     name: "supportiveServicesKind",
   },
   {
-    index: 20,
+    index: 25,
     data: "caseWorker1",
     title: "Case Worker 1",
     name: "caseWorker1",
   },
   {
-    index: 21,
+    index: 26,
     data: "caseWorkerPhone1",
     title: "Case Worker Phone 1",
     name: "caseWorkerPhone1",
   },
   {
-    index: 22,
+    index: 27,
     data: "caseWorker2",
     title: "Case Worker 2",
     name: "caseWorker2",
   },
   {
-    index: 23,
+    index: 28,
     data: "caseWorkerPhone2",
     title: "Case Worker Phone 2",
     name: "caseWorkerPhone2",
   },
   {
-    index: 24,
+    index: 29,
     data: "percentFPL",
     title: "Percent of FPL",
     name: "percentFPL",
   },
   {
-    index: 25,
+    index: 30,
     data: "trainingExit",
     title: "Training Exit",
     name: "trainingExit",
   },
   {
-    index: 26,
+    index: 31,
     data: "drugHistory",
     title: "Drug History",
     name: "drugHistory",
   },
   {
-    index: 27,
+    index: 32,
     data: "alcoholHistory",
     title: "Alcohol History",
     name: "alcoholHistory",
   },
   {
-    index: 28,
+    index: 33,
     data: "mentalHistory",
     title: "Mental Health History",
     name: "mentalHistory",
   },
   {
-    index: 29,
+    index: 34,
     data: "criminalHistory",
     title: "Criminal History",
     name: "criminalHistory",
   },
   {
-    index: 30,
+    index: 35,
     data: "criminalCurrent",
     title: "Currently Serving Time",
     name: "criminalCurrent",
   },
   {
-    index: 31,
+    index: 36,
     data: "criminalStatus",
     title: "Criminal Status",
     name: "criminalStatus",
   },
   {
-    index: 32,
+    index: 37,
     data: "homeless",
     title: "Homeless/Insecure Housing",
     name: "homeless",
   },
   {
-    index: 33,
+    index: 38,
     data: "monthlyIncome",
     title: "Monthly Income",
     name: "monthlyIncome",
   },
   {
-    index: 34,
+    index: 39,
     data: "diplomaGED",
     title: "Diploma or GED",
     name: "diplomaGED",
   },
   {
-    index: 35,
+    index: 40,
     data: "employedCurrently",
     title: "Currently Employed",
     name: "employedCurrently",
   },
   {
-    index: 36,
+    index: 41,
     data: "age",
     title: "Age",
     name: "age",
   },
   {
-    index: 37,
+    index: 42,
     data: "gender",
     title: "Gender",
     name: "gender",
   },
   {
-    index: 38,
+    index: 43,
     data: "race",
     title: "Race",
     name: "race",
   },
   {
-    index: 39,
+    index: 44,
     data: "headofHouse",
     title: "Head of House",
     name: "headofHouse",
   },
   {
-    index: 40,
+    index: 45,
     data: "singleParent",
     title: "Single Parent",
     name: "singleParent",
   },
   {
-    index: 41,
+    index: 46,
     data: "numberChildren",
     title: "Number of Children",
     name: "numberChildren",
   },
   {
-    index: 42,
+    index: 47,
     data: "ageChildren",
     title: "Age of Children",
     name: "ageChildren",
   },
   {
-    index: 43,
+    index: 48,
     data: "childCareIssue",
     title: "Childcare Issues",
     name: "childCareIssue",
   },
   {
-    index: 44,
+    index: 49,
     data: "veteran",
     title: "Veteran",
     name: "veteran",
   },
   {
-    index: 45,
+    index: 50,
     data: "i9Doc",
     title: "i9 Documentation",
     name: "i9Doc",
   },
   {
-    index: 46,
+    index: 51,
     data: "jobLastStartDate",
     title: "Last Job Start",
     name: "jobLastStartDate",
   },
   {
-    index: 47,
+    index: 52,
     data: "jobLastStartWage",
     title: "Current Wage",
     name: "jobLastStartWage",
   },
   {
-    index: 48,
+    index: 53,
     data: "jobFirstStartDate",
     title: "First Job Start",
     name: "jobFirstStartDate",
   },
   {
-    index: 49,
+    index: 54,
     data: "jobFirstStartWage",
     title: "Start Wage",
     name: "jobFirstStartWage",
   },
   {
-    index: 50,
+    index: 55,
     data: "birthDate",
     title: "Birthdate",
     name: "birthDate",
   },
   {
-    index: 51,
+    index: 56,
     data: "lastGrade",
     title: "Last Grade Completed",
     name: "lastGrade",
   },
   {
-    index: 52,
+    index: 57,
     data: "ageAtEnrollment",
     title: "Age At Enrollment",
     name: "ageAtEnrollment",
   },
   {
-    index: 53,
+    index: 58,
     data: "class",
     title: "Class",
     name: "Class",
   },
   {
-    index: 54,
+    index: 59,
     data: "household",
     title: "Household Size",
     name: "household",
   },
   {
-    index: 55,
+    index: 60,
     data: "company",
     title: "Company",
     name: "company",
   },
   {
-    index: 56,
+    index: 61,
     data: "placed",
     title: "Placed",
     name: "placed",
   },
   {
-    index: 57,
+    index: 62,
     data: "reten3moeli",
     title: "3M Retention Eligible",
     name: "reten3moeli",
   },
   {
-    index: 58,
+    index: 63,
     data: "reten3mo",
     title: "3M Retention",
     name: "reten3mo",
   },
   {
-    index: 59,
+    index: 64,
     data: "reten6moeli",
     title: "6M Retention Eligible",
     name: "reten6moeli",
   },
   {
-    index: 60,
+    index: 65,
     data: "reten6mo",
     title: "6M Retention",
     name: "reten6mo",
   },
   {
-    index: 61,
+    index: 66,
     data: "reten12moeli",
     title: "12M Retention Eligible",
     name: "reten12moeli",
   },
   {
-    index: 62,
+    index: 67,
     data: "reten12mo",
     title: "12M Retention",
     name: "reten12mo",
@@ -614,6 +621,8 @@ window.loadData = (json) => {
     dt.column(61).visible(false);
     dt.column(62).visible(false);
     dt.column(63).visible(false);
+    dt.column(64).visible(false);
+    dt.column(65).visible(false);
   };
 
 
@@ -682,6 +691,8 @@ window.loadData = (json) => {
     dt.column(61).visible(true);
     dt.column(62).visible(true);
     dt.column(63).visible(true);
+    dt.column(64).visible(true);
+    dt.column(65).visible(true);
   };
 
   window.rebuild = function (stored) {

@@ -1,20 +1,20 @@
 const summaryFunction = (api) => {
   const columnProgram = api.column(3, { search: "applied" }).data();
-  const columnSuccess = api.column(8, { search: "applied" }).data();
-  const columnPlaced = api.column(57, { search: "applied" }).data();
-  const columnfJobStart = api.column(49, { search: "applied" }).data();
+  const columnSuccess = api.column(13, { search: "applied" }).data();
+  const columnPlaced = api.column(61, { search: "applied" }).data();
+  const columnfJobStart = api.column(54, { search: "applied" }).data();
 
-  const columnThreeEli = api.column(58, { search: "applied" }).data();
-  const columnThreeAch = api.column(59, { search: "applied" }).data();
-  const columnSixEli = api.column(60, { search: "applied" }).data();
-  const columnSixAch = api.column(61, { search: "applied" }).data();
-  const columnTwelveEli = api.column(62, { search: "applied" }).data();
-  const columnTwelveAch = api.column(63, { search: "applied" }).data();
+  const columnThreeEli = api.column(62, { search: "applied" }).data();
+  const columnThreeAch = api.column(63, { search: "applied" }).data();
+  const columnSixEli = api.column(64, { search: "applied" }).data();
+  const columnSixAch = api.column(65, { search: "applied" }).data();
+  const columnTwelveEli = api.column(66, { search: "applied" }).data();
+  const columnTwelveAch = api.column(67, { search: "applied" }).data();
 
   console.log(columnfJobStart);
 
-  const columnLastWageStart = api.column(48, { search: "applied" }).data();
-  const columnFirstWageStart = api.column(50, { search: "applied" }).data();
+  const columnLastWageStart = api.column(52, { search: "applied" }).data();
+  const columnFirstWageStart = api.column(54, { search: "applied" }).data();
 
 
 
@@ -159,7 +159,7 @@ const avgFirstWageApprentice = calculateAverage(columnFirstWageStart, columnProg
   // Remove the formatting to get integer data for summation
   let intVal = function (i) {
     return typeof i === "string"
-      ? i.replace(/[\$,]/g, "") * 1
+      ? i.replace(/[$,]/g, "") * 1
       : typeof i === "number"
       ? i
       : 0;
@@ -301,7 +301,13 @@ return csv
 
   // Updated functions
   function countRows(column, columnProgram, program) {
-    return column.filter((value, index) => value && value.trim() !== "" && columnProgram[index] === program).length;
+    return column.filter((value, index) => {
+      // Check if value exists and is not null/undefined
+      if (!value) return false;
+      // Check if value has trim method (is a string) and is not empty
+      const trimmedValue = typeof value === 'string' ? value.trim() : value.toString().trim();
+      return trimmedValue !== "" && columnProgram[index] === program;
+    }).length;
   }
 
 
@@ -313,8 +319,12 @@ return csv
     // Iterate through the data
     for (let i = 0; i < columnProgram.length; i++) {
       // Check conditions for program match and success date being populated
-      if (columnProgram[i] === program && columnSuccess[i] && columnSuccess[i].trim() !== "") {
-        programComplete++;
+      if (columnProgram[i] === program && columnSuccess[i]) {
+        // Check if columnSuccess[i] has trim method (is a string) and is not empty
+        const trimmedValue = typeof columnSuccess[i] === 'string' ? columnSuccess[i].trim() : columnSuccess[i].toString().trim();
+        if (trimmedValue !== "") {
+          programComplete++;
+        }
       }
     }
 
@@ -362,7 +372,7 @@ return csv
   const filteredValues = wageColumn
     .map((wage, index) => {
       if (programColumn[index] === programFilter) {
-        const numericWage = parseFloat(wage.toString().replace(/[\$,]/g, "")); // Convert to number
+        const numericWage = parseFloat(wage.toString().replace(/[$,]/g, "")); // Convert to number
         return isNaN(numericWage) ? null : numericWage; // Ignore invalid numbers
       }
       return null;
